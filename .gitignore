@@ -1,0 +1,3 @@
+# Ignorar archivos de configuración de entorno
+# Ignorar .env en cualquier subcarpeta
+**/.env
