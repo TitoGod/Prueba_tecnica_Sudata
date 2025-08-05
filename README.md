@@ -7,12 +7,12 @@ Este repositorio contiene el script y la documentación para replicar diariament
 ## 📁 Estructura del repositorio
 
 ```text
-├── create_db.py       # Script de creación de las tablas en la base de datos PostgreSQL local
-├── csv_to_db.py       # Script leer los archivos CSV con pandas, hacer unas transformaciones y luego poblar las tablas en la base de datos local
 ├── replicate.py       # Script Python de replicación
-├── .env               # Variables de entorno
-├── README.md          # Documentación principal
-
+├── create_db.py       # Script Python para crear la base de datos y las tablas en PostgreSQL
+├── csv_to_db.py       # Script Python para poblar las tablas con datos
+├── .env.example       # Ejemplo de variables de entorno
+├── README.md          # Documentación principal (este archivo)
+└── cron_setup.sh      # Script de ejemplo para configurar cron en Linux/macOS
 ```
 
 ---
@@ -22,7 +22,10 @@ Este repositorio contiene el script y la documentación para replicar diariament
 1. **Python 3.7+** instalado en tu sistema.
 2. **Pip** para instalar dependencias.
 3. Cuenta y proyecto creado en **Supabase** (plan gratuito).
-4. Base de datos local PostgreSQL (`ventas_origen`) ya poblada.
+4. Base de datos local PostgreSQL (`ventas_origen`) ya creada.
+
+   * Este repositorio incluye un script para la **creación de las tablas** (`create_tables.sql`).
+   * También se incluye un script para **poblar las tablas con datos de ejemplo** (`populate_tables.sql`).
 
 Instalación de librerías Python:
 
@@ -88,25 +91,6 @@ Para inspeccionar las tablas y relaciones en Supabase:
 
 ## 🗓️ Automatización diaria
 
-### Linux/macOS (cron)
-
-1. Asegúrate de que `replicate.py` y `.env` estén accesibles.
-2. Haz ejecutable el helper (opcional):
-
-   ```bash
-   chmod +x cron_setup.sh
-   ```
-3. Abre tu crontab:
-
-   ```bash
-   crontab -e
-   ```
-4. Agrega la línea siguiente para ejecutar todos los días a las 02:00 AM:
-
-   ```cron
-   0 2 * * * cd /ruta/al/repositorio && /usr/bin/python3 replicate.py >> replicacion.log 2>&1
-   ```
-
 ### Windows (Task Scheduler)
 
 1. Abre el **Programador de tareas**.
@@ -133,4 +117,5 @@ O utiliza el string de conexión que te provee Supabase en **Settings → Databa
 
 ## 📝 Licencia y contribuciones
 
-Este proyecto está bajo la licencia MIT. ¡Contribuciones y mejoras son bienvenidas mediante Pull Requests!
+Este proyecto está bajo la licencia MIT.
+
