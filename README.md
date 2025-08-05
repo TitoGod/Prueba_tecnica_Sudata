@@ -24,8 +24,8 @@ Este repositorio contiene el script y la documentación para replicar diariament
 3. Cuenta y proyecto creado en **Supabase** (plan gratuito).
 4. Base de datos local PostgreSQL (`ventas_origen`) ya creada.
 
-   * Este repositorio incluye un script para la **creación de las tablas** (`create_tables.sql`).
-   * También se incluye un script para **poblar las tablas con datos de ejemplo** (`populate_tables.sql`).
+   * Este repositorio incluye un script para la **creación de las tablas** (`create_db.py`).
+   * También se incluye un script para **poblar las tablas con datos de ejemplo** (`csv_to_db.py`).
 
 Instalación de librerías Python:
 
