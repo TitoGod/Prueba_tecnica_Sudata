@@ -15,8 +15,8 @@ Ejercicio 1/
 ├── README.md           # Documentación principal para este ejercicio
 └── screenshots/        # Capturas de pantalla del Programador de Tareas en Windows
     └── pasos.png       # Imagenes explicativas
-│
-├── Ejercicio 2
+
+Ejercicio 2/
 │   ├── ...                     # Archivos relacionados al segundo ejercicio
 │   └── README.md               # Documentación detallada del Ejercicio 2
 
@@ -32,7 +32,7 @@ Ejercicio 1/
 * Crear una base PostgreSQL local (`ventas_origen`)
 * Crear y poblar tablas con datos desde CSV
 * Replicar los datos a una base espejo en Supabase (`ventas_espejo`)
-* Automatizar la replicación diaria con cron o Task Scheduler
+* Automatizar la replicación diaria con Task Scheduler (Programador de Tareas de Windows)
 
 Ver [Ejercicio 1/README.md](Ejercicio%201/README.md) para más detalles.
 
