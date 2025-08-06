@@ -47,7 +47,7 @@ def make_engine(cfg: Dict) -> Engine:
     return create_engine(uri, echo=False, pool_pre_ping=True) 
 
 # -------------------------------------------------------------------
-#  FUNCIONES PRINCIPALES (MODIFICADAS)
+#  FUNCIONES PRINCIPALES
 # -------------------------------------------------------------------
 
 def get_ordered_tables(engine: Engine) -> List[str]:

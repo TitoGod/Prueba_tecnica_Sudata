@@ -7,12 +7,14 @@ Este repositorio contiene el script y la documentación para replicar diariament
 ## 📁 Estructura del repositorio
 
 ```text
-├── replicate.py       # Script Python de replicación
-├── create_db.py       # Script Python para crear la base de datos y las tablas en PostgreSQL
-├── csv_to_db.py       # Script Python para poblar las tablas con datos
-├── .env.example       # Ejemplo de variables de entorno
-├── README.md          # Documentación principal (este archivo)
-└── cron_setup.sh      # Script de ejemplo para configurar cron en Linux/macOS
+Ejercicio 1/
+├── replicate.py        # Script Python de replicación
+├── create_db.py        # Script Python para crear la base de datos y las tablas en PostgreSQL
+├── csv_to_db.py        # Script Python para poblar las tablas con datos
+├── .env.example        # Ejemplo de archivo con variables de entorno
+├── README.md           # Documentación principal para este ejercicio
+└── screenshots/        # Capturas de pantalla del Programador de Tareas en Windows
+    └── pasos.png       # Imagenes explicativas
 ```
 
 ---
@@ -89,17 +91,68 @@ Para inspeccionar las tablas y relaciones en Supabase:
 
 ---
 
-## 🗓️ Automatización diaria
+## 🕒 Automatización diaria con Programador de Tareas (Windows)
 
-### Windows (Task Scheduler)
+Para automatizar la ejecución diaria del script de replicación (`replicate.py`) desde una base de datos local PostgreSQL hacia Supabase, se utilizó el **Programador de tareas de Windows**.
 
-1. Abre el **Programador de tareas**.
-2. Crea una tarea básica con trigger diario a la hora deseada.
-3. Acción:
+### 🔧 Requisitos previos
 
-   * Programa/script: ruta a `python.exe` (por ejemplo `C:\Python39\python.exe`)
-   * Argumentos: `"C:\ruta\al\repositorio\replicate.py"`
-   * "Iniciar en": carpeta del repositorio.
+* Tener Python instalado y accesible desde el sistema
+* Verificar que el script `replicate.py` funcione correctamente al ejecutarlo manualmente
+* Archivo `.env` correctamente configurado y ubicado en la carpeta del script
+
+---
+
+### 📁 Paso 1: Crear un archivo `.bat` para ejecutar el script
+
+Se recomienda usar un archivo por lotes para facilitar la ejecución desde el Programador de tareas.
+
+1. Crear un nuevo archivo de texto y pegar el siguiente contenido:
+
+```bat
+@echo off
+cd "C:\ruta\a\Ejercicio 1"
+"C:\ruta\a\python.exe" replicate.py >> log_replicacion.txt 2>&1
+```
+
+> Reemplazar:
+>
+> * `C:\ruta\a\Ejercicio 1` con la ruta a la carpeta donde está el script.
+> * `C:\ruta\a\python.exe` con la ruta real al ejecutable de Python.
+
+2. Guardarlo como `replicar.bat` dentro de la carpeta del proyecto.
+
+Este archivo también generará un log (`log_replicacion.txt`) con cada ejecución, útil para verificar errores.
+
+---
+
+### 🕒 Paso 2: Crear una tarea programada
+
+1. Abrir el **Programador de tareas** (Task Scheduler) desde el menú de inicio.
+2. Seleccionar **Crear tarea básica**.
+3. Asignar un nombre descriptivo (por ejemplo: `Replicación diaria Supabase`).
+4. En **Desencadenar**, seleccionar **Diariamente** y establecer la hora deseada.
+5. En **Acción**, seleccionar **Iniciar un programa**.
+6. En el campo **Programa o script**, seleccionar el archivo `replicar.bat` creado previamente.
+7. Finalizar la tarea.
+
+---
+
+### ✅ Verificación
+
+Para verificar que la tarea funciona correctamente:
+
+* Ejecutar manualmente desde el Programador de tareas (clic derecho → **Ejecutar**).
+* Revisar el archivo `log_replicacion.txt` generado para verificar que no haya errores.
+* Comprobar que los datos hayan sido replicados correctamente en la base de datos destino (Supabase).
+
+---
+
+### 📌 Notas adicionales
+
+* Asegúrese de que la computadora esté encendida y que no esté en modo de suspensión a la hora programada.
+* Si se usan rutas con espacios, colocar entre comillas (`"`) en el archivo `.bat`.
+* Si se requiere privilegios administrativos, se puede configurar la tarea para que se ejecute con los mismos.
 
 ---
 
