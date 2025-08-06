@@ -7,13 +7,14 @@ Este repositorio contiene la resolución de distintos ejercicios como parte de u
 ## 📁 Estructura general
 
 ```text
-├── Ejercicio 1
-│   ├── replicate.py            # Script para replicar datos de PostgreSQL a Supabase
-│   ├── create_db.py            # Script Python para crear la base de datos y las tablas en PostgreSQL
-│   ├── csv_to_db.py            # Script Python para poblar las tablas con datos
-│   ├── .env.example            # Variables de entorno para las conexiones
-│   ├── cron_setup.sh           # Script ejemplo para cron
-│   └── README.md               # Documentación detallada del Ejercicio 1
+Ejercicio 1/
+├── replicate.py        # Script Python de replicación
+├── create_db.py        # Script Python para crear la base de datos y las tablas en PostgreSQL
+├── csv_to_db.py        # Script Python para poblar las tablas con datos
+├── .env.example        # Ejemplo de archivo con variables de entorno
+├── README.md           # Documentación principal para este ejercicio
+└── screenshots/        # Capturas de pantalla del Programador de Tareas en Windows
+    └── pasos.png       # Imagenes explicativas
 │
 ├── Ejercicio 2
 │   ├── ...                     # Archivos relacionados al segundo ejercicio
