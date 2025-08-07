@@ -38,9 +38,6 @@ Ejercicio 2/
 * Replicar los datos a una base espejo en Supabase (`ventas_espejo`)
 * Automatizar la replicación diaria con Task Scheduler (Programador de Tareas de Windows)
 
-> Actualmente la replicación se realiza utilizando un cron job en **Render**, conectando a una base PostgreSQL desplegada también en **Render**.
-> La carpeta `.github/workflows` ha sido eliminada ya que **no se utiliza GitHub Actions**.
-
 Ver [Ejercicio 1/README.md](Ejercicio%201/README.md) para más detalles.
 
 ---
