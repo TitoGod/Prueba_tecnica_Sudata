@@ -91,7 +91,7 @@ Para inspeccionar las tablas y relaciones en Supabase:
 
 ### 🖼️ Vista del esquema en Supabase:
 
-![Esquema DB](Ejercicio%201/screenshots/Esquema%20DB.png)
+![Esquema DB](/screenshots/Esquema%20DB.png)
 
 ---
 
