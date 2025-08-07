@@ -57,172 +57,77 @@ CREATE TABLE IF NOT EXISTS cotizaciones (
 
 ---
 
-### 🧠 Funcionalidades
 
-#### 📌 `data_historica.py`
+* `data_historica.py`
+  Script que toma todos los datos históricos desde la API, se conecta a la base de datos en Render, crea la tabla `cotizaciones` si no existe e inserta todos los datos.
 
-* Descarga **todas las cotizaciones históricas** desde la API del BCRA.
-* Crea la tabla `cotizaciones` si no existe.
-* Inserta todos los registros en la base de datos.
+* `incremental.py`
+  Script que se conecta a la base de datos en Render, consulta la última fecha registrada y trae solo los nuevos registros posteriores a esa fecha desde la API para insertarlos en la base de datos.
 
-> ⚠️ Usar una sola vez para inicializar la base de datos.
+* `utils.py`
+  Funciones auxiliares para conexión a base, consulta API y carga de datos.
 
----
-
-#### 🔁 `incremental.py`
-
-* Consulta la **última fecha** registrada en la base de datos.
-* Extrae **nuevos registros** desde la API del BCRA.
-* Inserta solo los datos **posteriores a esa fecha**.
-
-> ✅ Ideal para ejecutar de forma programada semanalmente.
+* `.env`
+  Archivo con variables de entorno para conexión local (no subir a repositorio).
 
 ---
 
-#### 🔧 `utils.py`
+## 🚀 Cómo fue construida la ingesta incremental
 
-Contiene funciones reutilizables para:
+La ingesta incremental está diseñada para mantener actualizada la base de datos con los datos de cotizaciones del BCRA sin duplicar información. El proceso es:
 
-* Conexión a la base de datos
-* Inserción de datos
-* Llamadas a la API del BCRA
-* Manejo de fechas y errores
-
----
-
-### 🤖 Automatización con GitHub Actions
-
-Podés ejecutar `incremental.py` automáticamente con GitHub Actions, por ejemplo, **una vez por semana**.
-
-#### 1. Crear archivo `.github/workflows/update.yml`:
-
-```yaml
-name: Actualización semanal de cotizaciones
-
-on:
-  schedule:
-    - cron: '0 12 * * 1'  # Todos los lunes a las 12:00 UTC
-  workflow_dispatch:      # Permite ejecución manual
-
-jobs:
-  run-script:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clonar repositorio
-        uses: actions/checkout@v3
-
-      - name: Configurar Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Instalar dependencias
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Crear archivo .env
-        run: |
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
-          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
-          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
-          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
-
-      - name: Ejecutar script incremental
-        run: python incremental.py
-```
-
-#### 2. Crear los **secretos** en GitHub:
-
-Ir a:
-`Settings → Secrets and variables → Actions → New repository secret`
-Agregar los siguientes:
-
-* `DB_HOST`
-* `DB_PORT`
-* `DB_NAME`
-* `DB_USER`
-* `DB_PASSWORD`
+1. Consultar la base de datos para obtener la última fecha registrada.
+2. Consultar la API oficial del BCRA solicitando solo los datos posteriores a esa fecha.
+3. Insertar únicamente los registros nuevos en la tabla `cotizaciones`, usando cláusulas que evitan duplicados (`ON CONFLICT DO NOTHING`).
+4. De esta forma, se minimiza la carga y el tiempo de ejecución, manteniendo la base actualizada.
 
 ---
 
-### ✅ Ejecución manual
+## ⏳ Ejemplo de ejecución
+
+### Ejecución inicial (todo el histórico)
 
 ```bash
-# Carga inicial (una vez)
 python data_historica.py
+```
 
-# Actualización incremental
+Este script descarga y carga la totalidad del histórico desde la API, creando la tabla si es necesario.
+
+---
+
+### Ejecución incremental (solo nuevos datos)
+
+```bash
 python incremental.py
 ```
 
----
-
-### 🧪 Ejemplo de ejecución
-
-```
-🔍 Última fecha registrada: 2024-08-01
-📅 Consultando desde 2024-08-02 hasta 2025-08-07...
-📥 Registros encontrados: 5
-✅ Registro insertado: 2024-08-02
-✅ Registro insertado: 2024-08-03
-...
-```
+Este script consulta la última fecha cargada y trae solo los registros posteriores para insertarlos.
 
 ---
 
-### ✅ `.env.example`
+## 🗄️ Acceso a la base PostgreSQL en la nube (Render)
 
-```env
-# Variables necesarias para conexión a Supabase
-SUPABASE_URL=https://tu-proyecto.supabase.co
-SUPABASE_KEY=tu_clave_secreta
-```
-
-Guardá esto como `.env.example` en la raíz del repositorio.
+* La base de datos está alojada en **Render.com**, lo que permite un acceso remoto y estable.
+* Las credenciales de conexión (host, puerto, usuario, contraseña, nombre de base) se configuran vía variables de entorno en Render.
+* Para acceder a la base y explorar tablas, se puede usar pgAdmin 4 u otras herramientas de cliente PostgreSQL.
+* También es posible realizar consultas desde el panel web de Render.
 
 ---
 
-## 🔁 Automatización con GitHub Actions
+## ⏰ Automatización con Render Cron Job
 
-Este proyecto incluye una configuración para ejecutar el script de ingesta incremental (`incremental.py`) automáticamente una vez por semana usando **GitHub Actions**.
-
-### 📅 Frecuencia
-
-El script se ejecuta automáticamente:
-
-* 🕘 Cada **lunes a las 09:00 (ARG)**.
-* ▶️ También puede ser ejecutado **manualmente** desde la pestaña [Actions](../../actions) del repositorio.
-
-### ⚙️ Archivos involucrados
-
-```text
-.github/
-└── workflows/
-    └── run_incremental.yml   # Workflow programado para ejecutar el script semanalmente
-
-.env.example                  # Plantilla para las variables de entorno necesarias
-requirements.txt              # Lista de dependencias
-```
-
-### 🔐 Configurar Secrets
-
-Debés agregar los siguientes *Secrets* en tu repositorio GitHub:
-
-1. `SUPABASE_URL`: URL del proyecto Supabase
-2. `SUPABASE_KEY`: API Key o clave de servicio para la conexión
-
-> Configuralos en: **Settings → Secrets and variables → Actions**
-
-### ✅ Resultado
-
-Cada semana, GitHub ejecutará el flujo de trabajo que:
-
-1. Clona tu repo.
-2. Instala dependencias.
-3. Crea un archivo `.env` temporal a partir de los secretos.
-4. Ejecuta `incremental.py` para insertar nuevas cotizaciones en la base.
+* El script `incremental.py` se ejecuta automáticamente una vez por semana mediante un cron job configurado en Render.
+* Esto garantiza que la base de datos esté siempre actualizada sin necesidad de intervención manual.
+* Los logs de ejecución y estado del cron job se pueden consultar en el panel de Render.
 
 ---
 
+
+## 📊 Inspección de la base de datos
+
+Para inspeccionar la tabla y sus datos podés usar:
+
+* **pgAdmin 4** o cualquier cliente PostgreSQL, con las variables de entorno indicadas.
+* Panel de Render → pestaña de base de datos → Query Editor.
+
+---
