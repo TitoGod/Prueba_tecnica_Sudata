@@ -1,8 +1,3 @@
-Aquí tienes el `README.md` principal actualizado con una descripción breve del **Ejercicio 2** (extracción incremental desde la API del BCRA), además de los cambios anteriores:
-
----
-
-````md
 # Repositorio de Prueba Técnica Sudata
 
 Este repositorio contiene la resolución de distintos ejercicios como parte de una prueba técnica. Cada ejercicio se encuentra organizado en su propia carpeta con código fuente, scripts, y un `README.md` explicativo.
@@ -72,9 +67,3 @@ Ver [Ejercicio 2/README.md](Ejercicio%202/README.md) para más detalles.
 ## 📄 Licencia
 
 Este repositorio está disponible bajo la licencia MIT.
-
-```
-
-¿Querés que lo convierta a un archivo `.md` descargable o querés que lo copie directamente en tu proyecto?
-```
-a
