@@ -44,7 +44,7 @@ Ver [Ejercicio 1/README.md](Ejercicio%201/README.md) para más detalles.
 
 ### 🔹 Ejercicio 2: Extracción incremental desde la API del BCRA usando Render cron jobs
 
-* Se conecta a la [API oficial del BCRA](https://api.bcra.gob.ar/) para obtener las cotizaciones del dólar tipo vendedor.
+* Se conecta a la [API oficial del BCRA](https://www.bcra.gob.ar/BCRAyVos/catalogo-de-APIs-banco-central.asp) para obtener las cotizaciones del dólar tipo vendedor.
 * La extracción es **incremental**, es decir, se descarga solo la información nueva desde la última fecha registrada.
 * Se utiliza una base PostgreSQL en la nube desplegada en **Render**.
 * La actualización semanal se realiza mediante un **cron job configurado en Render** (sin necesidad de Task Scheduler ni GitHub Actions).
