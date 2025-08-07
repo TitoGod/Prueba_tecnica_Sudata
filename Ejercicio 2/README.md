@@ -173,3 +173,57 @@ python incremental.py
 
 ---
 
+### ✅ `.env.example`
+
+```env
+# Variables necesarias para conexión a Supabase
+SUPABASE_URL=https://tu-proyecto.supabase.co
+SUPABASE_KEY=tu_clave_secreta
+```
+
+Guardá esto como `.env.example` en la raíz del repositorio.
+
+---
+
+## 🔁 Automatización con GitHub Actions
+
+Este proyecto incluye una configuración para ejecutar el script de ingesta incremental (`incremental.py`) automáticamente una vez por semana usando **GitHub Actions**.
+
+### 📅 Frecuencia
+
+El script se ejecuta automáticamente:
+
+* 🕘 Cada **lunes a las 09:00 (ARG)**.
+* ▶️ También puede ser ejecutado **manualmente** desde la pestaña [Actions](../../actions) del repositorio.
+
+### ⚙️ Archivos involucrados
+
+```text
+.github/
+└── workflows/
+    └── run_incremental.yml   # Workflow programado para ejecutar el script semanalmente
+
+.env.example                  # Plantilla para las variables de entorno necesarias
+requirements.txt              # Lista de dependencias
+```
+
+### 🔐 Configurar Secrets
+
+Debés agregar los siguientes *Secrets* en tu repositorio GitHub:
+
+1. `SUPABASE_URL`: URL del proyecto Supabase
+2. `SUPABASE_KEY`: API Key o clave de servicio para la conexión
+
+> Configuralos en: **Settings → Secrets and variables → Actions**
+
+### ✅ Resultado
+
+Cada semana, GitHub ejecutará el flujo de trabajo que:
+
+1. Clona tu repo.
+2. Instala dependencias.
+3. Crea un archivo `.env` temporal a partir de los secretos.
+4. Ejecuta `incremental.py` para insertar nuevas cotizaciones en la base.
+
+---
+
