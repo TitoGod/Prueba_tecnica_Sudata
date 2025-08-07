@@ -89,10 +89,6 @@ Para inspeccionar las tablas y relaciones en Supabase:
 3. Verás las tablas reflejadas (`dim_date`, `dim_product`, `dim_customer_segment`, `fact_sales`, etc.) con sus columnas y constraints.
 4. Puedes ejecutar queries en **SQL Editor** para explorar datos y relaciones.
 
-### 🖼️ Vista del esquema en Supabase:
-
-![Esquema DB](/screenshots/Esquema%20DB.png)
-
 ---
 
 ## 🕒 Automatización diaria con Programador de Tareas (Windows)
