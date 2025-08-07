@@ -24,11 +24,11 @@ API_BASE = "https://api.bcra.gob.ar/estadisticascambiarias/v1.0"
 MONEDA = "USD"
 
 # Variables de entorno
-DB_USER = os.getenv('SUPABASE_DB_USER')
-DB_PASSWORD = os.getenv('SUPABASE_DB_PASSWORD')
-DB_HOST = os.getenv('SUPABASE_DB_HOST')
-DB_PORT = os.getenv('SUPABASE_DB_PORT')
-DB_NAME = os.getenv('SUPABASE_DB_NAME')
+DB_USER = os.getenv('DB_USER')
+DB_PASSWORD = os.getenv('DB_PASSWORD')
+DB_HOST = os.getenv('DB_HOST')
+DB_PORT = os.getenv('DB_PORT')
+DB_NAME = os.getenv('DB_NAME')
 
 # ──────────────────────── Funciones  ────────────────────────
 
