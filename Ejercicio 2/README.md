@@ -4,15 +4,18 @@ Este proyecto realiza la carga **histórica** y la **actualización incremental*
 
 ---
 
-### 📁 Estructura del repositorio
+## 📁 Estructura del repositorio
 
 ```text
-├── data_historica.py     # Carga todos los datos históricos y crea la tabla
-├── incremental.py        # Trae solo los registros nuevos desde la última fecha registrada
-├── utils.py              # Funciones auxiliares para conexión, inserción, etc.
-├── .env                  # Variables de entorno (no versionar)
-├── .env.example          # Ejemplo de archivo .env
-├── README.md             # Documentación del proyecto
+├── incremental.py         # Script de actualización incremental desde la API del BCRA
+├── create_db.py           # Script Python para crear la base de datos y las tablas en Supabase
+├── csv_to_db.py           # Script Python para poblar las tablas con datos CSV
+├── .env.example           # Ejemplo de archivo de variables de entorno
+├── requirements.txt       # Lista de dependencias Python necesarias
+├── .github/
+│   └── workflows/
+│       └── run_incremental.yml  # Automatización del script incremental usando GitHub Actions
+├── README.md              # Documentación principal del proyecto
 ```
 
 ---
