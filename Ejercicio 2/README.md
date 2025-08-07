@@ -1,6 +1,6 @@
-## 💵 Extracción de Cotizaciones del Dólar (BCRA API → Supabase)
+## 💵 Extracción de Cotizaciones del Dólar (BCRA API → Render)
 
-Este proyecto realiza la carga **histórica** y la **actualización incremental** de cotizaciones del dólar tipo **vendedor** desde la API del BCRA a una base de datos en la nube (Supabase/PostgreSQL). Ideal para mantener registros actualizados de manera automática.
+Este proyecto realiza la carga **histórica** y la **actualización incremental** de cotizaciones del dólar tipo **vendedor** desde la API del BCRA a una base de datos en la nube (Render/PostgreSQL). Ideal para mantener registros actualizados de manera automática.
 
 ---
 
@@ -11,10 +11,6 @@ Este proyecto realiza la carga **histórica** y la **actualización incremental*
 ├── create_db.py           # Script Python para crear la base de datos y las tablas en Supabase
 ├── csv_to_db.py           # Script Python para poblar las tablas con datos CSV
 ├── .env.example           # Ejemplo de archivo de variables de entorno
-├── requirements.txt       # Lista de dependencias Python necesarias
-├── .github/
-│   └── workflows/
-│       └── run_incremental.yml  # Automatización del script incremental usando GitHub Actions
 ├── README.md              # Documentación principal del proyecto
 ```
 
@@ -23,7 +19,7 @@ Este proyecto realiza la carga **histórica** y la **actualización incremental*
 ### ⚙️ Requisitos
 
 * Python 3.9 o superior
-* Cuenta en [Supabase](https://supabase.com/)
+* Cuenta en [Render](https://render.com/)
 * Paquetes:
 
 ```bash
