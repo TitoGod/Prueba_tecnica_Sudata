@@ -24,6 +24,7 @@ Ejercicio 2/
 ├── .env.example        # Ejemplo con variables necesarias
 └── README.md           # Documentación detallada del Ejercicio 2
 
+<<<<<<< HEAD
 Ejercicio 3/
 ├── .env                 # variables de entorno (no subir)
 ├── bloqueos_tecnicos.py # detectar Cloudflare / CAPTCHA / rate-limits
@@ -32,6 +33,8 @@ Ejercicio 3/
 ├── scraping.py          # scraper para Argenprop (genera CSV)
 └── README.md            # Documentación específica del Ejercicio 3
 
+=======
+>>>>>>> 9a8f206c1285824160e2575ba4d106a51139baae
 └── README.md           # Este README global
 ````
 
