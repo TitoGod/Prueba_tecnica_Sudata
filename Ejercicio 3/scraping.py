@@ -6,6 +6,7 @@
 # Importar librerías necesarias
 import time
 import random
+import os
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -17,7 +18,13 @@ from selenium.webdriver.support import expected_conditions as EC
 # -------------------------------- CONFIG --------------------------------
 URL = "https://www.argenprop.com/terrenos/venta/posadas"
 HEADLESS = True   # False para ver el navegador
-CSV_OUTPUT = "terrenos_argenprop_posadas.csv"
+
+# Ruta absoluta al directorio donde está este script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Nombre del archivo CSV dentro del mismo directorio
+CSV_OUTPUT = os.path.join(script_dir, "terrenos_posadas.csv")
+
 TIMEOUT = 12
 # ------------------------------------------------------------------------
 

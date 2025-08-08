@@ -16,7 +16,7 @@ from sqlalchemy.dialects.postgresql import insert as pg_insert
 
 
 # CONFIG: Ruta CSV por defecto
-CSV_DEFAULT = r"C:/Users/Dario/Desktop/Prueba técnica Sudata/terrenos_argenprop_posadas.csv"
+CSV_DEFAULT = r"C:/Users/Dario/Desktop/Prueba técnica Sudata/Ejercicio 3/terrenos_posadas.csv"
 
 # Cargar .env y configurar conexiones
 load_dotenv()

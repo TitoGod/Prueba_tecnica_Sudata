@@ -24,7 +24,6 @@ Ejercicio 2/
 ├── .env.example        # Ejemplo con variables necesarias
 └── README.md           # Documentación detallada del Ejercicio 2
 
-<<<<<<< HEAD
 Ejercicio 3/
 ├── .env                 # variables de entorno (no subir)
 ├── bloqueos_tecnicos.py # detectar Cloudflare / CAPTCHA / rate-limits
@@ -33,8 +32,6 @@ Ejercicio 3/
 ├── scraping.py          # scraper para Argenprop (genera CSV)
 └── README.md            # Documentación específica del Ejercicio 3
 
-=======
->>>>>>> 9a8f206c1285824160e2575ba4d106a51139baae
 └── README.md           # Este README global
 ````
 
@@ -64,37 +61,14 @@ Ver [Ejercicio 2/README.md](Ejercicio%202/README.md) para más detalles.
 
 ---
 
-### 🔹 Ejercicio 3: Scraping responsable → Limpieza → Carga a Supabase
+### 🔹 Ejercicio 3: Web Scraping → Limpieza → Carga a Supabase
 
-**Resumen:** herramientas y scripts para comprobar permisos y bloqueos técnicos, raspar listados públicos (ej. Argenprop — `terrenos/venta/posadas`), limpiar/transformar el CSV resultante y cargarlo a una base Postgres alojada en **Supabase**.
+* Incluye scripts para comprobar permisos en robots.txt y detectar bloqueos técnicos antes de realizar el scraping.
+* Scraping de listados públicos (ej. Argenprop — terrenos/venta/posadas) con Selenium. 
+* Limpieza y transformación del CSV resultante del scraping y carga en base de datos PostgreSQL alojada en Supabase.
+* El flujo recomendado es: verificar permisos → detectar bloqueos → ejecutar scraping → cargar datos a Supabase.
 
-**Qué contiene la carpeta `Ejercicio 3/`:**
-
-* **`.env`** — variables de entorno (no subir al repo). Variables esperadas:
-  `SUPABASE_DB_USER`, `SUPABASE_DB_PASSWORD`, `SUPABASE_DB_HOST`, `SUPABASE_DB_PORT`, `SUPABASE_DB_NAME`.
-
-* **`permite_scrap.py`** — comprueba `robots.txt` y ayuda a interpretar si la ruta objetivo está permitida para crawling con un user-agent dado. Es la primera verificación recomendada antes de raspar.
-
-* **`bloqueos_tecnicos.py`** — pruebas técnicas que detectan bloqueos: códigos HTTP (403/429/503), cabeceras Cloudflare / `cf-`, texto de desafío (CAPTCHA), etc. Sirve para saber si el sitio aplica protección anti-bot.
-
-* **`scraping.py`** — scraper principal (Selenium + utilidades). Funciones principales:
-
-  * `init_driver(headless=True)`: inicializa Chrome con opciones (headless opcional, user-agent, evasión básica de `navigator.webdriver`).
-  * `close_cookies_if_present(driver)`, `scroll_page(driver)`, `extract_cards_on_page(driver)`, `click_next_page(driver)` — helpers para interactuar con la página y extraer tarjetas.
-  * Genera un CSV con columnas crudas: `precio_raw`, `moneda`, `ubicacion`, `titulo_primary`, `detalle_url`, etc.
-
-* **`csv_to_db_supabase.py`** — lee el CSV, aplica transformaciones (normaliza nombres de columna, filtra filas sin `moneda`, convierte `precio` a `int`, agrega `id` secuencial) y carga a Supabase usando **SQLAlchemy**. Crea la tabla si no existe y usa `INSERT ... ON CONFLICT DO NOTHING` por defecto.
-
-**Flujo recomendado (resumido):**
-
-1. Revisar Términos y Condiciones y ejecutar `permite_scrap.py`.
-2. Ejecutar `bloqueos_tecnicos.py --url "<tu_url_objetivo>"`.
-3. Si está permitido y no hay bloqueos severos, ejecutar `scraping.py` → generar CSV.
-4. Ajustar `.env` con credenciales Supabase y ejecutar `csv_to_db_supabase.py` → datos en Supabase.
-
-**Nota legal / buenas prácticas:** incluso si los avisos son visibles públicamente, los Términos pueden prohibir la extracción automatizada. Pedir permiso por escrito (ej. `info@argenprop.com`) antes de raspar a gran escala o uso comercial. Respetar `robots.txt`, `crawl-delay` y no evadir CAPTCHAs.
-
-Ver [Ejercicio 3/README.md](Ejercicio%203/README.md) para la documentación completa del ejercicio 3 (comandos, ejemplos y troubleshooting).
+Ver [Ejercicio 3/README.md](Ejercicio%203/README.md) para más detalles.
 
 ---
 
@@ -102,8 +76,6 @@ Ver [Ejercicio 3/README.md](Ejercicio%203/README.md) para la documentación comp
 
 * Ingresar a cada carpeta de ejercicio para acceder a sus scripts y documentación específica.
 * Usar entornos virtuales para instalar dependencias locales.
-* Documentar cada nuevo ejercicio agregando su propia carpeta y README.
-* Mantener el archivo `.env` fuera del control de versiones (añadirlo a `.gitignore`).
 
 ---
 
