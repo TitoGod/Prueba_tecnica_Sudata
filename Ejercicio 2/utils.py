@@ -88,7 +88,7 @@ def fetch_range(fecha_desde, fecha_hasta, limit=1000):
         offset += limit
     return results
 
-def fetch_all_historical(start_year=2024):
+def fetch_all_historical(start_year=1992):
     """Recorre año a año desde start_year hasta hoy y acumula todo el histórico."""
     today = date.today()
     all_data = []
